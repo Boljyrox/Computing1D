@@ -1,5 +1,6 @@
 import streamlit as st
 import re
+import os
 
 # --- Page Configuration ---
 st.set_page_config(
@@ -102,13 +103,13 @@ local_css("style.css")
 # NOTE: To use local images, create an 'assets' folder, place your images inside,
 # and change the path like: "image": "assets/your_image_name.png"
 PRODUCTS = {
-    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black", "White", "Grey"], "sizes": ["S", "M", "L", "XL"], "image": "/assets/tshirt1.jpeg"},
+    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black", "White", "Grey"], "sizes": ["S", "M", "L", "XL"], "image": "/assets/shirt1.jpeg"},
     "tshirt2": {"name": "SUTD Engineering Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Navy", "Red"], "sizes": ["M", "L", "XL"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
     "tshirt3": {"name": "SUTD Architecture Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Beige", "Charcoal"], "sizes": ["S", "M", "L"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
-    "socks1": {"name": "SUTD Ankle Socks", "price": 12.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "/assets/socks2.jpeg"},
+    "socks1": {"name": "SUTD Ankle Socks", "price": 12.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
     "socks2": {"name": "SUTD Crew Socks", "price": 15.00, "type": "Socks", "colors": ["Grey", "Red"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
     "socks3": {"name": "SUTD Patterned Socks", "price": 16.00, "type": "Socks", "colors": ["Multi-Color"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
-    "jacket1": {"name": "SUTD Windbreaker", "price": 65.00, "type": "Jacket", "colors": ["Black", "Blue"], "sizes": ["S", "M", "L", "XL"], "image": "/assets/jacket1.jpeg"},
+    "jacket1": {"name": "SUTD Windbreaker", "price": 65.00, "type": "Jacket", "colors": ["Black", "Blue"], "sizes": ["S", "M", "L", "XL"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Jacket"},
     "jacket2": {"name": "SUTD Bomber Jacket", "price": 80.00, "type": "Jacket", "colors": ["Olive Green"], "sizes": ["M", "L"], "stock": 0, "image": "https://placehold.co/400x400/CCCCCC/FFFFFF?text=Out+of+Stock"},
 }
 
@@ -168,7 +169,15 @@ with main_col:
         col1, col2 = st.columns([1, 2])
         
         with col1:
-            st.image(details["image"], use_column_width=True)
+            image_path = details["image"]
+            # Check if it's a local path and if the file exists
+            if not image_path.startswith("http") and not os.path.exists(image_path):
+                # If local file is missing, use a placeholder and show a warning
+                st.warning(f"Image not found: {image_path}")
+                st.image("https://placehold.co/400x400/CCCCCC/FFFFFF?text=Image+Missing", use_column_width=True)
+            else:
+                # Otherwise, display the image from URL or valid local path
+                st.image(image_path, use_column_width=True)
 
         with col2:
             st.markdown(f'<p class="product-title">{details["name"]}</p>', unsafe_allow_html=True)
