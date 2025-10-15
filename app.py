@@ -103,7 +103,7 @@ local_css("style.css")
 # NOTE: To use local images, create an 'assets' folder, place your images inside,
 # and change the path like: "image": "assets/your_image_name.png"
 PRODUCTS = {
-    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black", "White", "Grey"], "sizes": ["S", "M", "L", "XL"], "image": "assets/your_image_name.png"},
+    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black"], "sizes": ["S", "M", "L", "XL"], "image": "https://media.karousell.com/media/photos/products/2022/1/26/sutd_asd_t_shirt_1643201711_155bf5e7_progressive.jpg"},
     "tshirt2": {"name": "SUTD Engineering Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Navy", "Red"], "sizes": ["M", "L", "XL"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
     "tshirt3": {"name": "SUTD Architecture Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Beige", "Charcoal"], "sizes": ["S", "M", "L"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
     "socks1": {"name": "SUTD Ankle Socks", "price": 12.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
@@ -174,10 +174,10 @@ with main_col:
             if not image_path.startswith("http") and not os.path.exists(image_path):
                 # If local file is missing, use a placeholder and show a warning
                 st.warning(f"Image not found: {image_path}")
-                st.image("https://media.karousell.com/media/photos/products/2022/1/26/sutd_asd_t_shirt_1643201711_155bf5e7_progressive.jpg", use_column_width=True)
+                st.image("https://media.karousell.com/media/photos/products/2022/1/26/sutd_asd_t_shirt_1643201711_155bf5e7_progressive.jpg", use_container_width=True)
             else:
                 # Otherwise, display the image from URL or valid local path
-                st.image(image_path, use_column_width=True)
+                st.image(image_path, use_container_width=True)
 
         with col2:
             st.markdown(f'<p class="product-title">{details["name"]}</p>', unsafe_allow_html=True)
