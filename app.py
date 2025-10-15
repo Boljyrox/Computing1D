@@ -5,7 +5,7 @@ import os
 # --- Page Configuration ---
 st.set_page_config(
     page_title="SUTD Merch Store",
-    page_icon="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN6vYzOHBz2f3kF3VuIysSmO-EU2gmTw1JQA&s",
+    page_icon="https://sutd.edu.sg/favicon.ico",
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -103,12 +103,8 @@ local_css("style.css")
 # NOTE: To use local images, create an 'assets' folder, place your images inside,
 # and change the path like: "image": "assets/your_image_name.png"
 PRODUCTS = {
-    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black"], "sizes": ["S", "M", "L", "XL"], "image": "https://media.karousell.com/media/photos/products/2022/1/26/sutd_asd_t_shirt_1643201711_155bf5e7_progressive.jpg"},
-    "tshirt2": {"name": "SUTD Engineering Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Navy", "Red"], "sizes": ["M", "L", "XL"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
-    "tshirt3": {"name": "SUTD Architecture Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Beige", "Charcoal"], "sizes": ["S", "M", "L"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
+    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black", "White", "Grey"], "sizes": ["S", "M", "L", "XL"], "image": "/assets/shirt1.jpeg"},
     "socks1": {"name": "SUTD Ankle Socks", "price": 12.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
-    "socks2": {"name": "SUTD Crew Socks", "price": 15.00, "type": "Socks", "colors": ["Grey", "Red"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
-    "socks3": {"name": "SUTD Patterned Socks", "price": 16.00, "type": "Socks", "colors": ["Multi-Color"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
     "jacket1": {"name": "SUTD Windbreaker", "price": 65.00, "type": "Jacket", "colors": ["Black", "Blue"], "sizes": ["S", "M", "L", "XL"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Jacket"},
     "jacket2": {"name": "SUTD Bomber Jacket", "price": 80.00, "type": "Jacket", "colors": ["Olive Green"], "sizes": ["M", "L"], "stock": 0, "image": "https://placehold.co/400x400/CCCCCC/FFFFFF?text=Out+of+Stock"},
 }
@@ -150,10 +146,10 @@ def validate_student_id(student_id):
 
 # --- Sidebar ---
 with st.sidebar:
-    st.image("https://www.sutd.edu.sg/asd/wp-content/uploads/sites/3/2024/11/SUTD-logo-white@2x.png", width=200)
+    st.image("https://sutd.edu.sg/SUTD_Stylised_Logo_R_RGB.png", width=200)
     st.title("SUTD Merch Store")
     st.markdown("---")
-    st.info("Welcome to the official merchandise store for SUTD students!")
+    st.info("Welcome to the official merchandise store for SUTD students and faculty!")
 
 
 # --- Main Page Layout ---
@@ -174,10 +170,10 @@ with main_col:
             if not image_path.startswith("http") and not os.path.exists(image_path):
                 # If local file is missing, use a placeholder and show a warning
                 st.warning(f"Image not found: {image_path}")
-                st.image("https://media.karousell.com/media/photos/products/2022/1/26/sutd_asd_t_shirt_1643201711_155bf5e7_progressive.jpg", use_container_width=True)
+                st.image("https://placehold.co/400x400/CCCCCC/FFFFFF?text=Image+Missing", use_column_width=True)
             else:
                 # Otherwise, display the image from URL or valid local path
-                st.image(image_path, use_container_width=True)
+                st.image(image_path, use_column_width=True)
 
         with col2:
             st.markdown(f'<p class="product-title">{details["name"]}</p>', unsafe_allow_html=True)
