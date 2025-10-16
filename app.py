@@ -94,9 +94,9 @@ local_css("style.css")
 # NOTE: To use local images, create an 'assets' folder, place your images inside,
 # and change the path like: "image": "assets/your_image_name.png"
 PRODUCTS = {
-    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black, White"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r98u-lz3ih4krf1fs0f@resize_w900_nl.webp"},
+    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black", "White"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r98u-lz3ih4krf1fs0f@resize_w900_nl.webp"},
     "socks2": {"name": "SUTD Crew Socks", "price": 15.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "https://thesockshack.com/cdn/shop/files/the-sock-shack-maine-womens-crew-socks-three-pack-roll-top-comfort-fit-non-binding-white-k-bell-cotton_grande.jpg?v=1704911061"},
-    "jacket1": {"name": "SUTD Jacket", "price": 65.00, "type": "Jacket", "colors": ["Black"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r991-lmd380f7uwind0@resize_w900_nl.webp"},
+    "jacket1": {"name": "SUTD Hoodie", "price": 65.00, "type": "Jacket", "colors": ["Black"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r991-lmd380f7uwind0@resize_w900_nl.webp"},
     "jacket2": {"name": "SUTD Bomber Jacket", "price": 80.00, "type": "Jacket", "colors": ["Olive Green"], "sizes": ["M", "L"], "stock": 0, "image": "https://placehold.co/400x400/CCCCCC/FFFFFF?text=Out+of+Stock"},
 }
 
@@ -186,18 +186,31 @@ with main_col:
 
 # --- Checkout Column ---
 with checkout_col:
-    st.markdown('<div class="checkout-card">', unsafe_allow_html=True)
     st.markdown('<p class="checkout-title">Shopping Cart</p>', unsafe_allow_html=True)
 
+    # Initialize cart if not already in session state
+    if "cart" not in st.session_state:
+        st.session_state.cart = {}
+
+    # Handle remove action outside the display loop
+    if "remove_key" in st.session_state:
+        key_to_remove = st.session_state.remove_key
+        if key_to_remove in st.session_state.cart:
+            del st.session_state.cart[key_to_remove]
+        del st.session_state.remove_key
+        st.rerun()
+
+    # --- Display cart items ---
     if not st.session_state.cart:
         st.write("Your cart is empty.")
     else:
         subtotal = 0
-        # Iterate over a copy of items to allow deletion
+
+        # Iterate over a copy (important!)
         for key, item in list(st.session_state.cart.items()):
             item_total = item["price"] * item["quantity"]
             subtotal += item_total
-            
+
             item_col, button_col = st.columns([4, 1])
             with item_col:
                 st.markdown(f"""
@@ -206,14 +219,16 @@ with checkout_col:
                     {item['quantity']} x ${item['price']:.2f} = <b>${item_total:.2f}</b>
                 </div>
                 """, unsafe_allow_html=True)
+
             with button_col:
-                 # Use a unique key for the remove button
                 if st.button("Remove", key=f"remove_{key}"):
-                    remove_from_cart(key)
-                    st.experimental_rerun() # Rerun to update the cart display immediately
-        
-        st.markdown("---")
-        st.subheader(f"Subtotal: ${subtotal:.2f}")
+                    st.session_state.remove_key = key
+                    st.rerun()
+
+        st.markdown(f"<hr><b>Subtotal: ${subtotal:.2f}</b>", unsafe_allow_html=True)
+
+
+
 
         # Student Discount Section
         st.markdown("---")
