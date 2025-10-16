@@ -36,16 +36,7 @@ h1, h2, h3, h4, h5, h6 {
     border-right: 1px solid #444;
 }
 
-/* Product Tile Styling */
-.product-tile {
-    background-color: #333333;
-    border: 1px solid #444;
-    border-radius: 10px;
-    padding: 20px;
-    margin-bottom: 20px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    transition: transform 0.2s;
-}
+
 .product-tile:hover {
     transform: scale(1.02);
 }
@@ -103,13 +94,9 @@ local_css("style.css")
 # NOTE: To use local images, create an 'assets' folder, place your images inside,
 # and change the path like: "image": "assets/your_image_name.png"
 PRODUCTS = {
-    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black"], "sizes": ["S", "M", "L", "XL"], "image": "https://media.karousell.com/media/photos/products/2022/1/26/sutd_asd_t_shirt_1643201711_155bf5e7_progressive.jpg"},
-    "tshirt2": {"name": "SUTD Engineering Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Navy", "Red"], "sizes": ["M", "L", "XL"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
-    "tshirt3": {"name": "SUTD Architecture Pillar Tee", "price": 28.00, "type": "T-Shirt", "colors": ["Beige", "Charcoal"], "sizes": ["S", "M", "L"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=Pillar+Tee"},
-    "socks1": {"name": "SUTD Ankle Socks", "price": 12.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
-    "socks2": {"name": "SUTD Crew Socks", "price": 15.00, "type": "Socks", "colors": ["Grey", "Red"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
-    "socks3": {"name": "SUTD Patterned Socks", "price": 16.00, "type": "Socks", "colors": ["Multi-Color"], "sizes": ["One Size"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Socks"},
-    "jacket1": {"name": "SUTD Windbreaker", "price": 65.00, "type": "Jacket", "colors": ["Black", "Blue"], "sizes": ["S", "M", "L", "XL"], "image": "https://placehold.co/400x400/333333/FFFFFF?text=SUTD+Jacket"},
+    "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black, White"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r98u-lz3ih4krf1fs0f@resize_w900_nl.webp"},
+    "socks2": {"name": "SUTD Crew Socks", "price": 15.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "https://thesockshack.com/cdn/shop/files/the-sock-shack-maine-womens-crew-socks-three-pack-roll-top-comfort-fit-non-binding-white-k-bell-cotton_grande.jpg?v=1704911061"},
+    "jacket1": {"name": "SUTD Jacket", "price": 65.00, "type": "Jacket", "colors": ["Black"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r991-lmd380f7uwind0@resize_w900_nl.webp"},
     "jacket2": {"name": "SUTD Bomber Jacket", "price": 80.00, "type": "Jacket", "colors": ["Olive Green"], "sizes": ["M", "L"], "stock": 0, "image": "https://placehold.co/400x400/CCCCCC/FFFFFF?text=Out+of+Stock"},
 }
 
