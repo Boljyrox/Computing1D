@@ -1,11 +1,12 @@
 import streamlit as st
 import re
 import os
+import time
 
 # --- Page Configuration ---
 st.set_page_config(
     page_title="SUTD Merch Store",
-    page_icon="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN6vYzOHBz2f3kF3VuIysSmO-EU2gmTw1JQA&s",
+    page_icon="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRN6vYzOHBz2f3kF3VuIysSmO-EU2gmTw1JQA&s" ,
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -260,7 +261,8 @@ with checkout_col:
             st.success("Thank you for your purchase! Your order has been placed.")
             st.session_state.cart = {} # Clear cart
             st.session_state.discount_applied = False
-            st.experimental_rerun()
+            time.sleep(2)  # Delay for 2 seconds
+            st.rerun()
 
 
     st.markdown('</div>', unsafe_allow_html=True)
