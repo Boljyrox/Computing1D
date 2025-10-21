@@ -145,14 +145,6 @@ def add_to_cart(product_id, name, price, color, size, quantity):
     # Display a temporary success message to the user
     st.success(f"Added {quantity} x {name} ({color}, {size}) to cart!")
 
-def remove_from_cart(cart_item_key):
-    """Removes an item from the cart."""
-    # Check if the item exists before trying to delete it
-    if cart_item_key in st.session_state.cart:
-        del st.session_state.cart[cart_item_key]
-    # (Note: This function is defined but not used in the final app.
-    # The removal logic is handled directly in the checkout column for simplicity.)
-
 def validate_student_id(student_id):
     """Validates SUTD student ID format using regex."""
     # Defines a regex pattern:
