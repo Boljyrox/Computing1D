@@ -1,7 +1,4 @@
 import streamlit as st
-import re  # Import regular expressions for student ID validation
-import os  # Import os to check if local image files exist
-import time # Import time to add a delay after checkout
 
 # --- Page Configuration ---
 # st.set_page_config must be the first Streamlit command in your script.
@@ -106,7 +103,7 @@ PRODUCTS = {
     "tshirt1": {"name": "SUTD Classic Tee", "price": 25.00, "type": "T-Shirt", "colors": ["Black", "White"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r98u-lz3ih4krf1fs0f@resize_w900_nl.webp"},
     "socks2": {"name": "SUTD Crew Socks", "price": 15.00, "type": "Socks", "colors": ["White", "Black"], "sizes": ["One Size"], "image": "https://thesockshack.com/cdn/shop/files/the-sock-shack-maine-womens-crew-socks-three-pack-roll-top-comfort-fit-non-binding-white-k-bell-cotton_grande.jpg?v=1704911061"},
     "jacket1": {"name": "SUTD Hoodie", "price": 65.00, "type": "Jacket", "colors": ["Black"], "sizes": ["S", "M", "L", "XL"], "image": "https://down-sg.img.susercontent.com/file/id-11134207-7r991-lmd380f7uwind0@resize_w900_nl.webp"},
-    "jacket2": {"name": "SUTD Bomber Jacket", "price": 80.00, "type": "Jacket", "colors": ["Olive Green"], "sizes": ["M", "L"], "stock": 0, "image": "https://placehold.co/400x400/CCCCCC/FFFFFF?text=Out+of+Stock"},
+    "jacket2": {"name": "SUTD Bomber Jacket", "price": 80.00, "type": "Jacket", "colors": ["Olive Green"], "sizes": ["M", "L"], "stock": 0, "image":"https://i.postimg.cc/sX7vttzs/temp-Image0l-Al-ZQ.avif"},
 }
 
 # --- Initialize Session State ---
@@ -146,15 +143,7 @@ def add_to_cart(product_id, name, price, color, size, quantity):
     st.success(f"Added {quantity} x {name} ({color}, {size}) to cart!")
 
 def validate_student_id(student_id):
-    """Validates SUTD student ID format using regex."""
-    # Defines a regex pattern:
-    # ^      - start of the string
-    # 1010   - must start with "1010"
-    # [0-9]{3} - must be followed by exactly 3 digits (0-9)
-    # $      - end of the string
-    pattern = re.compile(r"^1010[0-9]{3}$")
-    # pattern.match() checks if the student_id matches this pattern
-    return pattern.match(student_id)
+    return student_id[0:4] == "1010" and len(student_id) == 7 and student_id.isdigit()
 
 # --- Sidebar ---
 # 'with st.sidebar:' puts all the elements inside this block into the sidebar
@@ -170,14 +159,12 @@ with st.sidebar:
 # main_col will be 2.5 times wider than checkout_col
 main_col, checkout_col = st.columns([2.5, 1])
 
-# This block populates the main (left) column
+#left cololum 
 with main_col:
     st.title("Products")
     st.markdown("---")
-
-    # Iterate through our PRODUCTS dictionary to display each one
     for product_id, details in PRODUCTS.items():
-        # Use st.markdown to inject our custom 'product-tile' CSS class for styling
+
         st.markdown(f'<div class="product-tile">', unsafe_allow_html=True)
         
         # Create two inner columns: one for the image, one for the product details
@@ -185,14 +172,7 @@ with main_col:
         
         with col1:
             image_path = details["image"]
-            # Check if the image path is a local path (not a URL) AND if the file doesn't exist
-            if not image_path.startswith("http") and not os.path.exists(image_path):
-                # If the local image is missing, show a warning and a placeholder
-                st.warning(f"Image not found: {image_path}")
-                st.image("https://media.karousell.com/media/photos/products/2022/1/26/sutd_asd_t_shirt_1643201711_155bf5e7_progressive.jpg", use_container_width=True)
-            else:
-                # If it's a URL or a valid local file, display it
-                st.image(image_path, use_container_width=True)
+            st.image(image_path)
 
         with col2:
             # Display product details using our custom CSS classes
@@ -225,7 +205,6 @@ with main_col:
         st.markdown('</div>', unsafe_allow_html=True)
 
 # --- Checkout Column ---
-# This block populates the checkout (right) column
 with checkout_col:
     # Use st.markdown to inject our custom 'checkout-title' CSS class
     st.markdown('<p class="checkout-title">Shopping Cart</p>', unsafe_allow_html=True)
@@ -323,7 +302,6 @@ with checkout_col:
             st.session_state.discount_applied = False
             
             # Wait 2 seconds so the user can read the success message
-            time.sleep(2)
             # Rerun the script to show the now-empty cart
             st.rerun()
 
@@ -340,6 +318,6 @@ st.markdown("""
 <div style="text-align: center; padding: 20px;">
     <p>This store is proudly founded and run by a team of passionate SUTD students.</p>
     <p><b>Founders:</b> Balaji, Leonard, and Marcus</p>
-    <p>We believe in creating high-quality, stylish merchandise that lets you show off your SUTD pride.</p>
+    <p>We believe in creating high-quality, stylish merchandise that lets you show off your SUTD pride xoxoxo.</p>
 </div>
 """, unsafe_allow_html=True)
